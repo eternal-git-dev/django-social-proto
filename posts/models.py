@@ -1,9 +1,11 @@
 from django.conf import settings
+from django.core.validators import MinLengthValidator
 from django.db import models
 
 from users.validators import validate_image_size
 
 TOPIC_MAX_LENGTH = 128
+CONTENT_MIN_LENGTH = 10
 
 
 class Post(models.Model):
@@ -17,7 +19,10 @@ class Post(models.Model):
         verbose_name='Заголовок',
         max_length=TOPIC_MAX_LENGTH
     )
-    content = models.TextField(verbose_name='Текст')
+    content = models.TextField(
+        verbose_name='Текст',
+        validators=[MinLengthValidator(CONTENT_MIN_LENGTH)],
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     image = models.ImageField(
