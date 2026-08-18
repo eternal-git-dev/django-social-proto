@@ -2,7 +2,7 @@ from django.contrib.auth.models import AbstractUser
 from django.core.validators import EmailValidator
 from django.db import models
 
-from users.validators import validate_image_size, validate_date_of_birth
+from users.validators import validate_date_of_birth, validate_image_size
 
 
 class CustomUser(AbstractUser):
@@ -34,5 +34,5 @@ class CustomUser(AbstractUser):
         return f'Аккаунт пользователя {self.username}'
 
     class Meta:
-        verbose_name = "Пользователь"
-        verbose_name_plural = "Пользователи"
+        verbose_name = 'Пользователь'
+        verbose_name_plural = 'Пользователи'
