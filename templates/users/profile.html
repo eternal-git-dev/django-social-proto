@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Профиль {{ profile.username }} — SocialNest
+{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+
+    <div class="col-md-8">
+
+        <div class="card">
+
+            <div class="card-body">
+
+                <h1 class="h4">
+                    {{ profile.username }}
+                </h1>
+
+                {% if profile.avatar %}
+                    <img
+                        src="{{ profile.avatar.url }}"
+                        class="img-thumbnail mb-3"
+                        style="width: 150px; height: 150px; object-fit: cover;"
+                        alt="{{ profile.username }}"
+                    >
+                {% endif %}
+
+                {% if profile.first_name or profile.last_name %}
+                    <p>
+                        {{ profile.first_name }}
+                        {{ profile.last_name }}
+                    </p>
+                {% endif %}
+
+                {% if profile.bio %}
+                    <p>
+                        {{ profile.bio }}
+                    </p>
+                {% endif %}
+
+                {% if user == profile %}
+                    <a
+                        class="btn btn-primary"
+                        href="{% url 'users:profile_edit' %}"
+                    >
+                        Редактировать профиль
+                    </a>
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

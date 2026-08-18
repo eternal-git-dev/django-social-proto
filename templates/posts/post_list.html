@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Лента — SocialNest
+{% endblock %}
+
+{% block content %}
+
+<h1 class="mb-4">
+    Лента постов
+</h1>
+
+{% if user.is_authenticated %}
+    <a
+        class="btn btn-primary mb-4"
+        href="{% url 'posts:post_create' %}"
+    >
+        Новый пост
+    </a>
+{% endif %}
+
+{% for post in page_obj %}
+
+    <article class="mb-5">
+      <div class="col d-flex justify-content-center">
+        <div class="card" style="width: 30rem;">
+          <div class="card-body">
+
+            {% if post.image %}
+                <a href="{{ post.image.url }}" target="_blank">
+                    <img
+                        src="{{ post.image.url }}"
+                        class="img-fluid img-thumbnail mb-3"
+                        alt="{{ post.topic }}"
+                    >
+                </a>
+            {% endif %}
+
+            <h2 class="card-title h5">
+                {{ post.topic }}
+            </h2>
+
+            <p class="text-muted">
+                {{ post.created_at|date:"d.m.Y H:i" }}
+                —
+                <a href="{% url 'users:profile' username=post.author.username %}">
+                    @{{ post.author.username }}
+                </a>
+            </p>
+
+            <p class="card-text">
+                {{ post.content|truncatewords:40 }}
+            </p>
+
+            <a
+                href="{% url 'posts:post_detail' post_id=post.pk %}"
+                class="card-link"
+            >
+                Читать полностью
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </article>
+
+{% empty %}
+
+    <p class="text-muted">
+        Пока нет постов.
+    </p>
+
+{% endfor %}
+
+{% include "includes/paginator.html" %}
+
+{% endblock %}

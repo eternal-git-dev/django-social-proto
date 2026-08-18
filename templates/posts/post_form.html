@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {% if object %}
+        Редактирование поста
+    {% else %}
+        Новый пост
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+
+    <div class="col-md-7">
+
+        <div class="card">
+            <div class="card-body">
+
+                <h1 class="h4 mb-4">
+                    {% if object %}
+                        Редактирование поста
+                    {% else %}
+                        Новый пост
+                    {% endif %}
+                </h1>
+
+                <form
+                    method="post"
+                    enctype="multipart/form-data"
+                >
+
+                    {% csrf_token %}
+
+                    {{ form.as_p }}
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+                        Сохранить
+                    </button>
+
+                    <a
+                        href="{% url 'posts:post_list' %}"
+                        class="btn btn-secondary"
+                    >
+                        Отмена
+                    </a>
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

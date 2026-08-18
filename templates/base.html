@@ -1,0 +1,29 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/bootstrap.min.css' %}"
+    >
+
+    <title>{% block title %}SocialNest{% endblock %}</title>
+</head>
+
+<body>
+
+    {% include "includes/header.html" %}
+
+    <main class="container py-4">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    {% include "includes/footer.html" %}
+
+</body>
+</html>
